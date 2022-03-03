@@ -13,7 +13,7 @@ def nosotros(request):
     return render(request, 'paginas/nosotros.html')
 
 def libros(request):
-    libros = libro.objects.all()
+    libros = libro.objects.all().order_by('id')
     return render(request, 'libros/index.html', {'libros':libros})
 
 def create(request):
@@ -29,7 +29,7 @@ def create(request):
 def edit(request, id):
 
     librorec = libro.objects.get(id=id)
-    formulario = libroForm(request.POST or None, request.FILES or None, instance=libro)
+    formulario = libroForm(request.POST or None, request.FILES or None, instance=librorec)
 
     if formulario.is_valid() and request.POST:
         formulario.save()
